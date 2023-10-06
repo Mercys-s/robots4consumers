@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Robot
 
+from .excel import info_to_excel
+
 from time import strftime
 import json
 
@@ -18,6 +20,8 @@ def create_robots(request):
         robot = Robot.objects.create(serial = f'{v_data["model"]}-{v_data["version"]}', model = v_data["model"], \
                                      version = v_data["version"], created = v_data["created"])      
         robot.save()
+
+        info_to_excel('.//robots//static//robots//documents//robots.xlsx', v_data, Robot)
 
     return render(request, 'robots/robots_created.html')
 
