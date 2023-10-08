@@ -6,6 +6,8 @@ from .models import Robot
 
 from .excel import info_to_excel
 
+from emails.views import create_robot_signal
+
 from time import strftime
 import json
 
@@ -22,6 +24,8 @@ def create_robots(request):
         robot.save()
 
         info_to_excel('.//robots//static//robots//documents//robots.xlsx', v_data, Robot)
+
+        create_robot_signal.send(sender = Robot, robot = robot)
 
     return render(request, 'robots/robots_created.html')
 
