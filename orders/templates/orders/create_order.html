@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+</head>
+<body>
+    <h1>Create an order</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <select name="customer">
+            {% for customer in customers %}
+            <option value="{{ customer.email }}">{{ customer.email }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="serial" placeholder="Введите модель и серию через дефис">
+        <button type="submit">Заказать робота</button>
+    </form>
+</body>
+</html>
